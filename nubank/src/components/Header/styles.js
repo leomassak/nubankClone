@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const DefaultHeaderContainer = styled.View`
   align-items: center;
-  padding: 40px 0 30px;
+  padding: 5px 0 30px;
 `;
 
 export const LogoContainer = styled.View`
