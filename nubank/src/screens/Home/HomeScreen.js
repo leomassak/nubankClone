@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Animated } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { Extrapolate } from 'react-native-reanimated';
@@ -13,6 +13,10 @@ import Menu from '~/components/Menu/Menu';
 export default function Home() {
   let offset = 0;
   const translateY = new Animated.Value(0);
+  const opacityAnimation = new Animated.Value(0);
+
+  const [visible, setVisible] = useState(true);
+
   const animatedEvent = Animated.event(
     [
       {
@@ -55,6 +59,13 @@ export default function Home() {
     }
   }
 
+  function toggleInfoVisibility() {
+    Animated.timing(opacityAnimation, {
+      toValue: !!visible ? 1 : 0,
+      duration: 200,
+    }).start(() => setVisible(prevVisible => !prevVisible));
+  }
+
   return(
       <S.HomeContainer>
           <DefaultHeader />
@@ -72,11 +83,14 @@ export default function Home() {
             }}>
               <S.CardHeader>
                 <Icon name="attach-money" size={28} color="#666" />
-                <Icon name="visibility-off" size={28} color="#666" />
+                <Icon name="visibility-off" size={28} color="#666" onPress={toggleInfoVisibility} />
               </S.CardHeader>
               <S.CardContent>
                 <S.CardTitle>Saldo disponível</S.CardTitle>
-                <S.CardDescription>R$ 999.999,99</S.CardDescription>
+                <S.UserValueContainer>
+                  <S.VisibilityMask style={{ opacity: opacityAnimation }} />
+                  <S.CardDescription>R$ 999.999,99</S.CardDescription>
+                </S.UserValueContainer>
               </S.CardContent>
               <S.CardFooter>
                 <S.CardAnnotation>

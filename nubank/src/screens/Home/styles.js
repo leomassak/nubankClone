@@ -59,3 +59,14 @@ export const CardAnnotation = styled.Text`
     font-size: 14px;
     color: #333;
 `;
+
+export const UserValueContainer = styled.View`
+`;
+
+export const VisibilityMask = styled(Animated.View)`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #CECECE;
+    z-index: 2;
+`;
